@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,8 +44,22 @@ public class Menu extends AppCompatActivity {
         startExhBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Menu.this,Card.class);
-                startActivity(intent);
+                final EditText inputName = new EditText(Menu.this);
+                new AlertDialog.Builder(Menu.this).setTitle("Enter name")
+                        .setView(inputName)
+                        .setPositiveButton("Start", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                Intent intent = new Intent(Menu.this,ExhibitionMode.class);
+                                intent.putExtra("playerName", inputName.getText().toString());
+                                startActivity(intent); // variable to collect user input
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel(); // closes dialog
+                            }
+                        })
+                        .show();
             }
         });
     }
