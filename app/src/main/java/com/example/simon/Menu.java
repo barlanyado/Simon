@@ -44,11 +44,12 @@ public class Menu extends AppCompatActivity {
         startExhBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText inputName = new EditText(Menu.this);
+                EditText inputName = new EditText(Menu.this);
                 new AlertDialog.Builder(Menu.this).setTitle("Enter name")
                         .setView(inputName)
                         .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel(); // closes dialog
                                 Intent intent = new Intent(Menu.this,ExhibitionMode.class);
                                 intent.putExtra("playerName", inputName.getText().toString());
                                 startActivity(intent); // variable to collect user input

@@ -15,5 +15,12 @@
         >
 
     </TableLayout>
-
+    <Button
+        android:id="@+id/play_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let's Play !"
+        android:textColor="@color/white"
+        style="?attr/materialButtonOutlinedStyle"
+        />
 </LinearLayout>

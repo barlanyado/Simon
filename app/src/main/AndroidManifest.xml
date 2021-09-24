@@ -14,7 +14,9 @@
             android:exported="true" />
         <activity
             android:name=".SimonLogic"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Menu"
             android:exported="true">

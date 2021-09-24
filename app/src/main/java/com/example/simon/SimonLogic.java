@@ -1,11 +1,17 @@
 package com.example.simon;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,23 +22,40 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.HashMap;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class SimonLogic extends AppCompatActivity {
 
     HashMap<Integer, TableRow> rows = new HashMap<>();
     HashMap<Integer, Card> cards = new HashMap<>();
-
+    Round round;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon_logic);
-        Level currLevel = new Level(1);
+
+        /* Init all current round parameters */
+
+        Level currLevel = new Level(getIntent().getIntExtra("level", 1));
         initTableLayout(currLevel.rows);
         initCardsLayouts(currLevel.cols);
         initColors();
         LinearLayout linearLayout = findViewById(R.id.root_linear_layout);
+        round = new Round(currLevel.cards,cards);
+
+        /* Play the round for the user */
+        Button playBtn = findViewById(R.id.play_Btn);
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRound(0);
+            }
+        });
+        //Toast.makeText(this, "Let's play !", Toast.LENGTH_SHORT).show();
     }
 
     private void initColors()
@@ -86,4 +109,33 @@ public class SimonLogic extends AppCompatActivity {
             }
         }
     }
+
+    public void showRound(int cardID)
+    {
+            if (cardID == cards.size())
+                return;
+            Card card = cards.get(cardID);
+            new CountDownTimer(500, 100) {
+                MotionEvent motionEvent = MotionEvent.obtain(
+                        SystemClock.uptimeMillis(),
+                        SystemClock.uptimeMillis() + 100,
+                        MotionEvent.ACTION_DOWN,
+                        0.0f,
+                        0.0f,
+                        0
+                );
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    card.dispatchTouchEvent(motionEvent);
+                }
+
+                @Override
+                public void onFinish() {
+                    motionEvent.setAction(MotionEvent.ACTION_UP);
+                    card.dispatchTouchEvent(motionEvent);
+                    showRound(cardID + 1);
+                }
+            }.start();
+        }
+
 }
