@@ -83,6 +83,7 @@ public class Card extends Button {
 
     public static int randomColor()
     {
+        int i =1;
         Random random = new Random();
         return random.nextInt(4);
     }
