@@ -76,10 +76,10 @@
 
             <TableRow>
                 <Button
-                    android:id="@+id/start_Button"
+                    android:id="@+id/start_exh_Button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Start Game"
+                    android:text="Start Career Mode"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:textColor="@color/white"
@@ -87,6 +87,20 @@
                     android:backgroundTint="@color/weak"
                     />
 
+                <Button
+                    android:id="@+id/start_car_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Start Exhibition Mode"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/white"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:backgroundTint="@color/weak"
+                    />
+
+            </TableRow>
+            <TableRow>
                 <Button
                     android:id="@+id/table_Button"
                     android:layout_width="wrap_content"
@@ -97,7 +111,6 @@
                     style="@style/Widget.MaterialComponents.Button"
                     android:backgroundTint="@color/weak"
                     />
-
             </TableRow>
 
         </TableLayout>

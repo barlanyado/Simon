@@ -21,13 +21,6 @@ import java.util.HashMap;
 
 public class SimonLogic extends AppCompatActivity {
 
-    private final int EASY_ROW = 2;
-    private final int EASY_COL = 2;
-    private final int MODERATE_ROW = 3;
-    private final int MODERATE_COL = 3;
-    private final int HARD_ROW = 4;
-    private final int HARD_COL = 4;
-
     HashMap<Integer, TableRow> rows = new HashMap<>();
     HashMap<Integer, Card> cards = new HashMap<>();
 
@@ -35,8 +28,9 @@ public class SimonLogic extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon_logic);
-        initTableLayout(HARD_ROW);
-        initCardsLayouts(HARD_COL);
+        Level currLevel = new Level(1);
+        initTableLayout(currLevel.rows);
+        initCardsLayouts(currLevel.cols);
         initColors();
         LinearLayout linearLayout = findViewById(R.id.root_linear_layout);
     }
