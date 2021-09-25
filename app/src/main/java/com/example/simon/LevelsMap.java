@@ -28,7 +28,7 @@ public class LevelsMap extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.levels_map);
+        setContentView(R.layout.activity_levels_map);
 
         LinearLayout levels_layout = findViewById(R.id.levels);
 

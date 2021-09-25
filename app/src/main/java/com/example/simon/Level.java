@@ -15,6 +15,10 @@ public class Level {
     private final int MODERATE_SPEED = 4;
     private final int HARD_SPEED = 4;
 
+    public int ROUND_TIME = 10000; // in milliseconds
+    public int YELLOW_LINE = 4;
+    public int ORANGE_LINE = 7;
+
     public int rows;
     public int cols;
     public int speed;

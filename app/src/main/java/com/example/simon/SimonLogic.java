@@ -34,10 +34,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class SimonLogic extends AppCompatActivity {
 
     final int HOLD_TIMER = 4000;  // in milliseconds
-    final int ROUND_TIME = 10000; // in milliseconds
     final int ONE_SECOND = 1000; // in milliseconds
-    final int NORMAL_TIME = 4;
-    final int BAD_TIME = 7;
+    final int ONE_HUNDRED_MILLISECONDS = 100; // in milliseconds
 
     boolean RESULT_SUCCEED;
     int RESULT_SECONDS = 0;
@@ -49,6 +47,7 @@ public class SimonLogic extends AppCompatActivity {
     Button playBtn;
     ProgressBar progBar;
     gameTimer game;
+    Level currLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +56,13 @@ public class SimonLogic extends AppCompatActivity {
 
         /* Init all current round parameters */
 
-        Level currLevel = new Level(getIntent().getIntExtra("level", 8));
+        currLevel = new Level(getIntent().getIntExtra("level", 8));
         initTableLayout(currLevel.rows);
         initCardsLayouts(currLevel.cols);
         initColors();
-        LinearLayout linearLayout = findViewById(R.id.root_linear_layout);
 
         round = new Round(currLevel.cards,cards);
-        game = new gameTimer(ROUND_TIME, ONE_SECOND);
+        game = new gameTimer(currLevel.ROUND_TIME, ONE_HUNDRED_MILLISECONDS);
 
         /* Show the round for the user */
         playBtn = findViewById(R.id.play_Btn);
@@ -228,19 +226,18 @@ public class SimonLogic extends AppCompatActivity {
         public gameTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
+
         @Override
         public void onTick(long millisUntilFinished) {
             progBar.setProgress(progBar.getProgress() + 1);
             int newProg = progBar.getProgress();
-            switch (newProg) {
-                case NORMAL_TIME:
-                    progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.yellow)), android.graphics.PorterDuff.Mode.SRC_IN);
-                    break;
-                case BAD_TIME:
-                    progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.orange)), android.graphics.PorterDuff.Mode.SRC_IN);
-                    break;
-            }
+            if (newProg >= currLevel.YELLOW_LINE * 10)
+                progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.orange)), android.graphics.PorterDuff.Mode.SRC_IN);
+            else if (newProg >= currLevel.ORANGE_LINE * 10)
+                progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.yellow)), android.graphics.PorterDuff.Mode.SRC_IN);
+
         }
+
         @Override
         public void onFinish() {
             progBar.setProgress(progBar.getProgress() + 1);
@@ -250,7 +247,6 @@ public class SimonLogic extends AppCompatActivity {
             RESULT_SUCCEED = false;
             finishGame();
         }
-
     }
 
     private void finishGame()
