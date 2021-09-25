@@ -37,4 +37,8 @@ public class Round {
     {
         return roundQueue;
     }
+    public LinkedBlockingQueue<Card> getValidationQueue()
+    {
+        return validationQueue;
+    }
 }
