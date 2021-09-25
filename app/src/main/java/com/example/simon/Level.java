@@ -8,38 +8,95 @@ public class Level {
     private final int MODERATE_COL = 3;
     private final int HARD_ROW = 4;
     private final int HARD_COL = 4;
-    private final int EASY_CARDS = 4;
-    private final int MODERATE_CARDS = 6;
-    private final int HARD_CARDS = 9;
-    private final int EASY_SPEED = 4;
-    private final int MODERATE_SPEED = 4;
-    private final int HARD_SPEED = 4;
+    private final int EXPERT_ROW = 5;
+    private final int EXPERT_COL = 5;
+
+    private final int ONE_TO_THREE_CARDS = 4;
+    private final int FOUR_TO_SEVEN_CARDS = 6;
+    private final int EIGHT_TO_TEN_CARDS = 10;
+    private final int ELEVEN_TO_UNLIMITED_CARDS = 13;
+
+    private final int MAX_SPEED = 750;
+    private final int MIN_SPEED = 150;
+
 
     public int ROUND_TIME = 10000; // in milliseconds
     public int YELLOW_LINE = 4;
     public int ORANGE_LINE = 7;
 
+    private int level;
     public int rows;
     public int cols;
     public int speed;
     public int cards;
 
     public Level(int level) {
-        if (level < 4){
-            rows = EASY_ROW;
-            cols = EASY_COL;
-            cards = EASY_CARDS;
+        this.level = level;
+        calculateStructure();
+        calculateCardsNumber();
+        speed = 250;
+
+    }
+
+    private void calculateStructure()
+    {
+        switch (level){
+            case 1:
+            case 2:
+            case 3:
+                rows = EASY_ROW;
+                cols = EASY_COL;
+                break;
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                rows = MODERATE_ROW;
+                cols = MODERATE_COL;
+                break;
+            case 8:
+            case 9:
+            case 10:
+                rows = HARD_ROW;
+                cols = HARD_COL;
+                break;
+            default:
+                rows = EXPERT_ROW;
+                cols = EXPERT_COL;
+                break;
         }
-        else if (level < 8){
-            rows = MODERATE_ROW;
-            cols = MODERATE_COL;
-            cards = MODERATE_CARDS;
+    }
+
+    private void calculateCardsNumber()
+    {
+        switch (level){
+            case 1:
+            case 2:
+            case 3:
+                cards = ONE_TO_THREE_CARDS;
+                break;
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                cards = FOUR_TO_SEVEN_CARDS;
+                break;
+            case 8:
+            case 9:
+            case 10:
+                cards = EIGHT_TO_TEN_CARDS;
+                break;
+            default:
+                cards = ELEVEN_TO_UNLIMITED_CARDS;
+                break;
         }
-        else{
-            rows = HARD_ROW;
-            cols = HARD_COL;
-            cards = HARD_CARDS;
-        }
-        speed = 1;
+    }
+
+    private void calculateSpeed()
+    {
+        if (level <= 12)
+            speed = MAX_SPEED - (50 * level);
+        else
+            speed = MIN_SPEED;
     }
 }

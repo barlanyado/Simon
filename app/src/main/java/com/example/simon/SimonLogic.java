@@ -35,12 +35,12 @@ public class SimonLogic extends AppCompatActivity {
 
     final int HOLD_TIMER = 4000;  // in milliseconds
     final int ONE_SECOND = 1000; // in milliseconds
-    final int ONE_HUNDRED_MILLISECONDS = 100; // in milliseconds
+    final int FIFTHY_MILLISECONDS = 50; // in milliseconds
 
-    boolean RESULT_SUCCEED;
-    int RESULT_SECONDS = 0;
+    boolean result_succeed;
+    float result_seconds = 0;
 
-    boolean GAME_MODE = false;
+    boolean game_mode = false;
     HashMap<Integer, TableRow> rows = new HashMap<>();
     HashMap<Integer, Card> cards = new HashMap<>();
     Round round;
@@ -55,14 +55,15 @@ public class SimonLogic extends AppCompatActivity {
         setContentView(R.layout.activity_simon_logic);
 
         /* Init all current round parameters */
+        int level = getIntent().getIntExtra("level", 12);
+        currLevel = new Level(level);
 
-        currLevel = new Level(getIntent().getIntExtra("level", 8));
         initTableLayout(currLevel.rows);
         initCardsLayouts(currLevel.cols);
         initColors();
 
         round = new Round(currLevel.cards,cards);
-        game = new gameTimer(currLevel.ROUND_TIME, ONE_HUNDRED_MILLISECONDS);
+        game = new gameTimer(currLevel.ROUND_TIME, FIFTHY_MILLISECONDS);
 
         /* Show the round for the user */
         playBtn = findViewById(R.id.play_Btn);
@@ -156,7 +157,7 @@ public class SimonLogic extends AppCompatActivity {
                 return;
             }
             Card card = round.getRoundQueue().poll();
-            new CountDownTimer(500, 100) {
+            new CountDownTimer(currLevel.speed, 100) {
                 MotionEvent motionEvent = MotionEvent.obtain(
                         SystemClock.uptimeMillis(),
                         SystemClock.uptimeMillis() + 100,
@@ -191,7 +192,7 @@ public class SimonLogic extends AppCompatActivity {
             @Override
             public void onFinish() {
                 playBtn.setText("Go !");
-                GAME_MODE = true;
+                game_mode = true;
                 activateCards();
                 game.start();
             }
@@ -200,14 +201,14 @@ public class SimonLogic extends AppCompatActivity {
 
     public void cardTouchHandler(Card card)
     {
-        if (GAME_MODE)
+        if (game_mode)
         {
             Card queueCard = round.getValidationQueue().poll();
             if (card != queueCard ) {
-                playBtn.setText("WRONG CHOICE !");
+                playBtn.setText("WRONG !");
                 deactivateCards();
                 game.cancel();
-                RESULT_SUCCEED = false;
+                result_succeed = false;
                 finishGame();
             }
             else if (card == queueCard && round.getValidationQueue().isEmpty())
@@ -215,8 +216,8 @@ public class SimonLogic extends AppCompatActivity {
                 playBtn.setText("EXCELLENT !");
                 deactivateCards();
                 game.cancel();
-                RESULT_SUCCEED = true;
-                RESULT_SECONDS = progBar.getProgress();
+                result_succeed = true;
+                result_seconds = progBar.getProgress() / 10;
                 finishGame();
             }
         }
@@ -231,9 +232,9 @@ public class SimonLogic extends AppCompatActivity {
         public void onTick(long millisUntilFinished) {
             progBar.setProgress(progBar.getProgress() + 1);
             int newProg = progBar.getProgress();
-            if (newProg >= currLevel.YELLOW_LINE * 10)
+            if (newProg >= currLevel.ORANGE_LINE * 20)
                 progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.orange)), android.graphics.PorterDuff.Mode.SRC_IN);
-            else if (newProg >= currLevel.ORANGE_LINE * 10)
+            else if (newProg >= currLevel.YELLOW_LINE * 20)
                 progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.yellow)), android.graphics.PorterDuff.Mode.SRC_IN);
 
         }
@@ -244,13 +245,18 @@ public class SimonLogic extends AppCompatActivity {
             progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.red)), android.graphics.PorterDuff.Mode.SRC_IN);
             playBtn.setText("OUT OF TIME !");
             deactivateCards();
-            RESULT_SUCCEED = false;
+            result_succeed = false;
             finishGame();
         }
     }
 
     private void finishGame()
     {
-
+        Intent intent = new Intent();
+        intent.putExtra("result_succeed", result_succeed);
+        intent.putExtra("result_seconds", result_seconds);
+        setResult(RESULT_OK, intent);
+        Toast.makeText(SimonLogic.this, "asdasdasd",Toast.LENGTH_LONG);
+        finish();
     }
 }
