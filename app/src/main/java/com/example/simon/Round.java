@@ -10,25 +10,35 @@ public class Round {
     LinkedBlockingQueue<Card> validationQueue;
     HashMap<Integer, Card> cards;
     Integer cardsNumber;
-    Integer roundSize;
+    Integer roundLength;
 
-    public Round(int roundSize, int cardsNumber, HashMap<Integer, Card> cards)
+    public Round(int roundLength, HashMap<Integer, Card> cards)
     {
         roundQueue = new LinkedBlockingQueue<>();
         validationQueue = new LinkedBlockingQueue<>();
         this.cards = cards;
-        this.cardsNumber = cardsNumber;
-        this.roundSize = roundSize;
+        this.cardsNumber = cards.size();
+        this.roundLength = roundLength;
+        randomizeRound();
     }
 
-    public void randomizeRound()
+    private void randomizeRound()
     {
-        for (int i = 0; i < roundSize; i++)
+        for (int i = 0; i < roundLength; i++)
         {
             Random random = new Random();
             Card card = cards.get(random.nextInt(cardsNumber));
             roundQueue.add(card);
             validationQueue.add(card);
         }
+    }
+
+    public LinkedBlockingQueue<Card> getRoundQueue()
+    {
+        return roundQueue;
+    }
+    public LinkedBlockingQueue<Card> getValidationQueue()
+    {
+        return validationQueue;
     }
 }

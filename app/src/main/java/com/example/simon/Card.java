@@ -18,12 +18,14 @@ public class Card extends Button {
     private int gameColor;
     private boolean hidden;
     private static GradientDrawable cardHideShape;
-
+    private SimonLogic parentActivity;
     public Card(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         gameColor = 0;
         hidden = true;
+        parentActivity = (SimonLogic) context;
         initCard();
+
     }
 
     private void initCardHiddenShape()
@@ -62,15 +64,16 @@ public class Card extends Button {
         initCardHiddenShape();
         this.setHidden();
         this.setColor(randomColor());
+        this.setEnabled(false); // set card untouchable at first
 
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Card b = findViewById(v.getId());
-                Log.d("ID1: ", String.valueOf(b.getGameColor()));
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         b.setBackgroundColor(b.getGameColor());
+                        parentActivity.cardTouchHandler(b);
                         break;
                     case MotionEvent.ACTION_UP:
                         b.setHidden();
