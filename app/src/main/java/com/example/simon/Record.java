@@ -49,10 +49,8 @@ public class Record implements Serializable {
 
     @Override
     public String toString() {
-        return "Record{" +
-                "name='" + name + '\'' +
-                ", score=" + score +
-                ", level=" + level +
-                '}';
+        return   rate  + "           " + name +
+                "           " + score +
+                "           " + level;
     }
 }
