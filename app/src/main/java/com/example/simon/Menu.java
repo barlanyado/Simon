@@ -50,7 +50,7 @@ public class Menu extends AppCompatActivity {
                         .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel(); // closes dialog
-                                Intent intent = new Intent(Menu.this,ExhibitionMode.class);
+                                Intent intent = new Intent(Menu.this, ExhibitionMode.class);
                                 intent.putExtra("playerName", inputName.getText().toString());
                                 startActivity(intent); // variable to collect user input
                             }
@@ -61,6 +61,15 @@ public class Menu extends AppCompatActivity {
                             }
                         })
                         .show();
+            }
+        });
+
+        Button recordsExhBtn = findViewById(R.id.table_Button);
+        recordsExhBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, RecordsTable.class);
+                startActivity(intent);
             }
         });
     }
