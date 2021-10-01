@@ -3,6 +3,7 @@ package com.example.simon;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.SimpleAdapter;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +23,7 @@ public class RecordsTable extends ListActivity{
             FileInputStream fis = openFileInput("records");
             ObjectInputStream objIn = new ObjectInputStream(fis);
             records = (ArrayList<Record>) objIn.readObject();
-            ArrayAdapter<Record> adapter = new ArrayAdapter<Record>(this, android.R.layout.simple_list_item_1,records);
+                        ArrayAdapter<Record> adapter = new ArrayAdapter<Record>(this, android.R.layout.simple_gallery_item,records);
             setListAdapter(adapter);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

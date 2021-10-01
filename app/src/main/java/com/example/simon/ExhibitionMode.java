@@ -67,7 +67,7 @@ public class ExhibitionMode extends AppCompatActivity {
 
     private int calculateScore()
     {
-        if (result_seconds < 4)
+        if (result_seconds < 2)
             return  3;
         else if (result_seconds < 7)
             return 2;
@@ -139,7 +139,7 @@ public class ExhibitionMode extends AppCompatActivity {
 
                 Log.i("test",current_record.toString());
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 FileOutputStream fos = null;
                 try {
                     fos = openFileOutput("records",MODE_PRIVATE);
@@ -156,6 +156,10 @@ public class ExhibitionMode extends AppCompatActivity {
                     ioException.printStackTrace();
                 }
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
 
         }

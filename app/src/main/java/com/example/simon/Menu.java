@@ -41,6 +41,17 @@ public class Menu extends AppCompatActivity {
         letterN.startAnimation(anim);
 
         Button startExhBtn = findViewById(R.id.start_exh_Button);
+        Button startCareerBtn = findViewById(R.id.start_car_Button);
+
+        startCareerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, LevelsMap.class);
+                //intent.putExtra("playerName", inputName.getText().toString());
+                startActivity(intent); // variable to collect user input
+            }
+        });
+
         startExhBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

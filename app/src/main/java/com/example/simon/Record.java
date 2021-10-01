@@ -50,7 +50,7 @@ public class Record implements Serializable {
     @Override
     public String toString() {
         return   rate  + "           " + name +
-                "           " + score +
-                "           " + level;
+                "           " + level +
+                "           " + score;
     }
 }

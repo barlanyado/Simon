@@ -27,7 +27,8 @@
             android:textSize="17sp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="70dp"
-            android:text="Rate"/>
+            android:text="Rate"
+            android:id="@+id/rate"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +36,8 @@
             android:layout_gravity="center_horizontal"
             android:textSize="17sp"
             android:layout_marginEnd="70dp"
-            android:text="Name"/>
+            android:text="Name"
+            android:id="@+id/name"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,14 +45,16 @@
             android:layout_gravity="center_horizontal"
             android:textSize="17sp"
             android:layout_marginEnd="65dp"
-            android:text="Level"/>
+            android:text="Level"
+            android:id="@+id/level"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:textSize="17sp"
-            android:text="Score"/>
+            android:text="Score"
+            android:id="@+id/score"/>
 
     </LinearLayout>
 
