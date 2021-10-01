@@ -111,5 +111,8 @@ public class LevelsMap extends AppCompatActivity {
             rating_row.addView(rb);
 
         }
+
+        RatingBar test = findViewById(101);
+        test.setRating(3);
     }
 }

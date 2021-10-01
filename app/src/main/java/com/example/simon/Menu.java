@@ -41,6 +41,17 @@ public class Menu extends AppCompatActivity {
         letterN.startAnimation(anim);
 
         Button startExhBtn = findViewById(R.id.start_exh_Button);
+        Button startCareerBtn = findViewById(R.id.start_car_Button);
+
+        startCareerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, LevelsMap.class);
+                //intent.putExtra("playerName", inputName.getText().toString());
+                startActivity(intent); // variable to collect user input
+            }
+        });
+
         startExhBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +61,7 @@ public class Menu extends AppCompatActivity {
                         .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel(); // closes dialog
-                                Intent intent = new Intent(Menu.this,ExhibitionMode.class);
+                                Intent intent = new Intent(Menu.this, ExhibitionMode.class);
                                 intent.putExtra("playerName", inputName.getText().toString());
                                 startActivity(intent); // variable to collect user input
                             }
@@ -61,6 +72,15 @@ public class Menu extends AppCompatActivity {
                             }
                         })
                         .show();
+            }
+        });
+
+        Button recordsExhBtn = findViewById(R.id.table_Button);
+        recordsExhBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, RecordsTable.class);
+                startActivity(intent);
             }
         });
     }
