@@ -31,10 +31,10 @@ import java.util.HashMap;
 
 public class LevelsMap extends AppCompatActivity {
 
-    final private int LEVELS_NUMBER = 12;
+    final private int LEVELS_NUMBER = 24;
     final private int STARS_NUMBER = 3;
     final private int LEVELS_IN_ROW = 4;
-    final private int ROWS_NUMBER = 3;
+    final private int ROWS_NUMBER = 6;
 
     private ActivityResultLauncher<Intent> resultLauncher;
     private HashMap<Integer, RatingBar> ratings = new HashMap<>();
@@ -60,7 +60,7 @@ public class LevelsMap extends AppCompatActivity {
 
         sp = getSharedPreferences("levels", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        resetMap(editor);
+        //resetMap(editor);
         editor.putBoolean(openedString(1), true);
         editor.putInt(starsString(1), 0);
         editor.commit();
@@ -107,9 +107,8 @@ public class LevelsMap extends AppCompatActivity {
             for (int l = 0; l < LEVELS_IN_ROW; l++)
             {
                 TableRow.LayoutParams levelsRow_params = new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                levelsRow_params.setMargins(0,dpToPx(this,20),0,0);
+                levelsRow_params.setMargins(dpToPx(this,8),dpToPx(this,10),dpToPx(this,8),0);
                 levelsRow_params.gravity = Gravity.CENTER;
-                levelsRow_params.weight = LEVELS_IN_ROW / ROWS_NUMBER;
 
                 LinearLayout cellLayout = new LinearLayout(this);
                 cellLayout.setLayoutParams(levelsRow_params);
@@ -119,7 +118,7 @@ public class LevelsMap extends AppCompatActivity {
                 gd.setCornerRadius(10);
                 gd.setColor(Color.GRAY);
 
-                TableRow.LayoutParams buttons_params = new TableRow.LayoutParams(dpToPx(this,50), dpToPx(this,50));
+                TableRow.LayoutParams buttons_params = new TableRow.LayoutParams(dpToPx(this,40), dpToPx(this,40));
                 buttons_params.setMargins(0,0,0,0);
                 buttons_params.gravity = Gravity.CENTER;
                 Button btn = new Button(this);
@@ -133,16 +132,22 @@ public class LevelsMap extends AppCompatActivity {
                     public void onClick(View v) {
                         current_level = Integer.valueOf(String.valueOf(((Button)v).getText()));
                         Intent intent = new Intent(LevelsMap.this, SimonLogic.class);
-                        intent.putExtra("level", Integer.valueOf(String.valueOf(((Button)v).getText())));
+                        int level = Integer.valueOf(String.valueOf(((Button)v).getText()));
+                        if (level <= LEVELS_NUMBER / 2)
+                            intent.putExtra("level", Integer.valueOf(String.valueOf(((Button)v).getText())));
+                        else{
+                            intent.putExtra("level", Integer.valueOf(String.valueOf(((Button)v).getText())) - (LEVELS_NUMBER / 2));
+                            intent.putExtra("reverse", true);
+                        }
                         resultLauncher.launch(intent);
                     }
                 });
-                btn.setClickable(false);
+                btn.setClickable(true);
                 buttons.put(hashCounter, btn);
                 cellLayout.addView(btn);
 
                 TableRow.LayoutParams rb_params = new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                rb_params.setMargins(5,15,5,0);
+                rb_params.setMargins(dpToPx(this,5),dpToPx(this,15),dpToPx(this,5),0);
                 rb_params.gravity = Gravity.CENTER;
                 RatingBar rb = new RatingBar(this,null,R.attr.ratingBarStyleSmall);
                 rb.setId(View.generateViewId());

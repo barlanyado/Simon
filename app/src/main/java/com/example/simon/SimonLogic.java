@@ -36,7 +36,6 @@ public class SimonLogic extends AppCompatActivity {
     final private int HOLD_TIMER = 4000;  // in milliseconds
     final private int ONE_SECOND = 1000; // in milliseconds
     final private int FIFTHY_MILLISECONDS = 50; // in milliseconds
-
     private boolean result_succeed;
     private float result_seconds = 0;
 
@@ -56,9 +55,10 @@ public class SimonLogic extends AppCompatActivity {
         setContentView(R.layout.activity_simon_logic);
 
         /* Init all current round parameters */
-        int level = getIntent().getIntExtra("level", 12);
-        if (level > 8)
-            reverse_mode = true;
+        int level = getIntent().getIntExtra("level", 1);
+        reverse_mode = getIntent().getBooleanExtra("reverse", false);
+        if (reverse_mode)
+            Toast.makeText(this, "Reverse Mode !", Toast.LENGTH_SHORT).show();
         currLevel = new Level(level);
 
         initTableLayout(currLevel.rows);

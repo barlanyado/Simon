@@ -68,6 +68,8 @@ public class ExhibitionMode extends AppCompatActivity {
     private void callLevel(int current_level){
         Intent intent = new Intent(this,SimonLogic.class);
         intent.putExtra("level", current_level);
+        if (current_level > 12)
+            intent.putExtra("reverse", true);
         resultLauncher.launch(intent);
     }
 
