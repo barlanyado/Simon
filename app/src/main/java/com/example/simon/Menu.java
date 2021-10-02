@@ -2,11 +2,15 @@ package com.example.simon;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
 import java.lang.String;
 import java.util.concurrent.TimeUnit;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,12 +26,20 @@ import android.widget.TextView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class Menu extends AppCompatActivity {
+    MediaPlayer mMediaPlayer;
+    public void playMusic()
+    {
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = MediaPlayer.create(this, R.raw.background_sound);
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
         ImageView letterS = findViewById(R.id.letter_s_view);
         ImageView letterI = findViewById(R.id.letter_i_view);
         ImageView letterM = findViewById(R.id.letter_m_view);
@@ -83,5 +95,6 @@ public class Menu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        playMusic();
     }
 }
