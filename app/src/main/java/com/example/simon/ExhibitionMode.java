@@ -55,7 +55,6 @@ public class ExhibitionMode extends AppCompatActivity {
                     result_seconds = data.getFloatExtra("result_seconds", 0);
                 }
             }
-
         });
     }
 

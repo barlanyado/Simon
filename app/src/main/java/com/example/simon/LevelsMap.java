@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
@@ -58,7 +60,7 @@ public class LevelsMap extends AppCompatActivity {
 
         sp = getSharedPreferences("levels", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        //resetMap(editor);
+        resetMap(editor);
         editor.putBoolean(openedString(1), true);
         editor.putInt(starsString(1), 0);
         editor.commit();
@@ -105,7 +107,7 @@ public class LevelsMap extends AppCompatActivity {
             for (int l = 0; l < LEVELS_IN_ROW; l++)
             {
                 TableRow.LayoutParams levelsRow_params = new TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                levelsRow_params.setMargins(0,dpToPx(this,25),0,0);
+                levelsRow_params.setMargins(0,dpToPx(this,20),0,0);
                 levelsRow_params.gravity = Gravity.CENTER;
                 levelsRow_params.weight = LEVELS_IN_ROW / ROWS_NUMBER;
 
@@ -129,6 +131,7 @@ public class LevelsMap extends AppCompatActivity {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        current_level = Integer.valueOf(String.valueOf(((Button)v).getText()));
                         Intent intent = new Intent(LevelsMap.this, SimonLogic.class);
                         intent.putExtra("level", Integer.valueOf(String.valueOf(((Button)v).getText())));
                         resultLauncher.launch(intent);
@@ -139,12 +142,14 @@ public class LevelsMap extends AppCompatActivity {
                 cellLayout.addView(btn);
 
                 TableRow.LayoutParams rb_params = new TableRow.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                rb_params.setMargins(0,15,0,0);
+                rb_params.setMargins(5,15,5,0);
                 rb_params.gravity = Gravity.CENTER;
                 RatingBar rb = new RatingBar(this,null,R.attr.ratingBarStyleSmall);
+                rb.setId(View.generateViewId());
                 rb.setLayoutParams(rb_params);
                 rb.setNumStars(STARS_NUMBER);
-                rb.setId(View.generateViewId());
+                rb.setStepSize(1);
+
                 ratings.put(hashCounter, rb);
                 cellLayout.addView(rb);
 
@@ -153,6 +158,7 @@ public class LevelsMap extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     protected void onResume() {
@@ -163,8 +169,7 @@ public class LevelsMap extends AppCompatActivity {
             sp = getSharedPreferences("levels", MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putInt(starsString(current_level), calculateScore());
-            current_level++;
-            editor.putBoolean(openedString(current_level), true);
+            editor.putBoolean(openedString(current_level + 1), true);
             editor.commit();
         }
 
@@ -182,11 +187,27 @@ public class LevelsMap extends AppCompatActivity {
                 btn.setBackground(gd);
 
                 RatingBar rating = ratings.get(l);
-                rating.setRating(sp.getInt(starsString(l + 1), 0));
+                float rate = sp.getInt(starsString(l + 1), 0);
+                rating.setRating(rate);
 
+                LayerDrawable stars = (LayerDrawable) rating.getProgressDrawable();
+
+                switch ((int)rate){
+                    case 1:
+                        stars.getDrawable(2).setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+                        break;
+                    case 2:
+                        stars.getDrawable(2).setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                        break;
+                    case 3:
+                        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+                        break;
+                }
             }
         }
     }
+
+
 
     private String openedString(int level)
     {
@@ -200,7 +221,7 @@ public class LevelsMap extends AppCompatActivity {
 
     private int calculateScore()
     {
-        if (result_seconds < 2)
+        if (result_seconds < 3)
             return  3;
         else if (result_seconds < 7)
             return 2;
@@ -210,7 +231,7 @@ public class LevelsMap extends AppCompatActivity {
             return 0;
     }
 
-    public void resetMap(SharedPreferences.Editor editor)
+    private void resetMap(SharedPreferences.Editor editor)
     {
         for (int i = 1; i <= LEVELS_NUMBER; i++)
         {

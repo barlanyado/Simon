@@ -57,7 +57,7 @@ public class SimonLogic extends AppCompatActivity {
 
         /* Init all current round parameters */
         int level = getIntent().getIntExtra("level", 12);
-        if (level > 12)
+        if (level > 8)
             reverse_mode = true;
         currLevel = new Level(level);
 
@@ -220,7 +220,7 @@ public class SimonLogic extends AppCompatActivity {
                 deactivateCards();
                 game.cancel();
                 result_succeed = true;
-                result_seconds = progBar.getProgress() / 10;
+                result_seconds = progBar.getProgress() / 20;
                 finishGame();
             }
         }
