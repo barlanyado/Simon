@@ -11,7 +11,10 @@
         android:theme="@style/Theme.Simon">
         <activity
             android:name=".LevelsMap"
-            android:exported="true" />
+            android:exported="true"
+            >
+
+        </activity>
         <activity
             android:name=".ExhibitionMode"
             android:exported="true" >

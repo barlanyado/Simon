@@ -73,6 +73,7 @@ public class SimonLogic extends AppCompatActivity {
         progBar = findViewById(R.id.progressBar);
         progBar.getProgressDrawable().setColorFilter(
                 (getResources().getColor(R.color.green)), android.graphics.PorterDuff.Mode.SRC_IN);
+
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +156,6 @@ public class SimonLogic extends AppCompatActivity {
     private void showRound()
     {
             if (round.getRoundQueue().isEmpty()) {
-                playBtn.setText(String.valueOf(HOLD_TIMER / 1000));
                 prePlay();
                 return;
             }
@@ -188,14 +188,13 @@ public class SimonLogic extends AppCompatActivity {
 
     private void prePlay()
     {
-        new CountDownTimer(HOLD_TIMER, ONE_SECOND) {
+        new CountDownTimer(FIFTHY_MILLISECONDS * 3, FIFTHY_MILLISECONDS) {
             @Override
             public void onTick(long millisUntilFinished) {
-                playBtn.setText(String.valueOf(Integer.valueOf(playBtn.getText().toString()) - 1));
+                playBtn.setText("Go !");
             }
             @Override
             public void onFinish() {
-                playBtn.setText("Go !");
                 game_mode = true;
                 activateCards();
                 game.start();
