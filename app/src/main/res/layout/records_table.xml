@@ -55,12 +55,10 @@
             android:textSize="17sp"
             android:text="Score"
             android:id="@+id/score"/>
-
     </LinearLayout>
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/list"/>
-
+        android:id="@+id/records_listView"
+        />
 </LinearLayout>
