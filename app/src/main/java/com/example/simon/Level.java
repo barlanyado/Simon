@@ -34,8 +34,7 @@ public class Level {
         this.level = level;
         calculateStructure();
         calculateCardsNumber();
-        speed = 250;
-
+        calculateSpeed();
     }
 
     private void calculateStructure()

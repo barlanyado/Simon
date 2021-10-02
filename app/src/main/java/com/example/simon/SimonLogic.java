@@ -33,21 +33,22 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class SimonLogic extends AppCompatActivity {
 
-    final int HOLD_TIMER = 4000;  // in milliseconds
-    final int ONE_SECOND = 1000; // in milliseconds
-    final int FIFTHY_MILLISECONDS = 50; // in milliseconds
+    final private int HOLD_TIMER = 4000;  // in milliseconds
+    final private int ONE_SECOND = 1000; // in milliseconds
+    final private int FIFTHY_MILLISECONDS = 50; // in milliseconds
 
-    boolean result_succeed;
-    float result_seconds = 0;
+    private boolean result_succeed;
+    private float result_seconds = 0;
 
-    boolean game_mode = false;
-    HashMap<Integer, TableRow> rows = new HashMap<>();
-    HashMap<Integer, Card> cards = new HashMap<>();
-    Round round;
-    Button playBtn;
-    ProgressBar progBar;
-    gameTimer game;
-    Level currLevel;
+    private boolean game_mode = false;
+    private boolean reverse_mode = false;
+    private HashMap<Integer, TableRow> rows = new HashMap<>();
+    private HashMap<Integer, Card> cards = new HashMap<>();
+    private Round round;
+    private Button playBtn;
+    private ProgressBar progBar;
+    private gameTimer game;
+    private Level currLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class SimonLogic extends AppCompatActivity {
 
         /* Init all current round parameters */
         int level = getIntent().getIntExtra("level", 12);
+        if (level > 12)
+            reverse_mode = true;
         currLevel = new Level(level);
 
         initTableLayout(currLevel.rows);
@@ -157,6 +160,7 @@ public class SimonLogic extends AppCompatActivity {
                 return;
             }
             Card card = round.getRoundQueue().poll();
+            round.fillValidationQueues(card);
             new CountDownTimer(currLevel.speed, 100) {
                 MotionEvent motionEvent = MotionEvent.obtain(
                         SystemClock.uptimeMillis(),
@@ -203,15 +207,15 @@ public class SimonLogic extends AppCompatActivity {
     {
         if (game_mode)
         {
-            Card queueCard = round.getValidationQueue().poll();
-            if (card != queueCard ) {
+            Card nextCard = reverse_mode ? round.getReverseValidationQueue().pop() : round.getValidationQueue().poll();
+            if (card != nextCard ) {
                 playBtn.setText("WRONG !");
                 deactivateCards();
                 game.cancel();
                 result_succeed = false;
                 finishGame();
             }
-            else if (card == queueCard && round.getValidationQueue().isEmpty())
+            else if (card == nextCard && round.isValidationEmpty())
             {
                 playBtn.setText("EXCELLENT !");
                 deactivateCards();
