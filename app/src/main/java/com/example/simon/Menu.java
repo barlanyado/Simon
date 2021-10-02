@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,21 +20,41 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class Menu extends AppCompatActivity {
     MediaPlayer mMediaPlayer;
-    public void playMusic()
+    SharedPreferences menuSP;
+
+    private void playMusic()
     {
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer = MediaPlayer.create(this, R.raw.background_sound);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.setLooping(true);
+        //mMediaPlayer.start();
+    }
+
+    private void soundOff()
+    {
+        mMediaPlayer.pause();
+        SharedPreferences.Editor editor = menuSP.edit();
+        editor.putBoolean("soundOn", false);
+        editor.commit();
+    }
+    private void soundOn()
+    {
         mMediaPlayer.start();
+        SharedPreferences.Editor editor = menuSP.edit();
+        editor.putBoolean("soundOn", true);
+        editor.commit();
     }
 
     @Override
@@ -96,5 +117,24 @@ public class Menu extends AppCompatActivity {
             }
         });
         playMusic();
+        CheckBox soundCheckBox = findViewById(R.id.soundCheckbox);
+        soundCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    soundOn();
+                }
+                else{
+                    soundOff();
+                }
+            }
+        });
+
+        menuSP = getSharedPreferences("sound", MODE_PRIVATE);
+        if (menuSP.getBoolean("soundOn", true))
+            soundCheckBox.setChecked(true);
+        else
+            soundCheckBox.setChecked(false);
+
     }
 }
