@@ -62,13 +62,14 @@ public class ExhibitionMode extends AppCompatActivity {
                     result_seconds = data.getFloatExtra("result_seconds", 0);
                 }
             }
-
         });
     }
 
     private void callLevel(int current_level){
         Intent intent = new Intent(this,SimonLogic.class);
         intent.putExtra("level", current_level);
+        if (current_level > 12)
+            intent.putExtra("reverse", true);
         resultLauncher.launch(intent);
     }
 
