@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Record implements Serializable {
 
-    final String name;
+    private final String name;
     private int score;
     private int level;
     private int rate;

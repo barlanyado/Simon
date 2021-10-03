@@ -24,13 +24,13 @@ import java.util.List;
 
 public class ExhibitionMode extends AppCompatActivity {
 
-    String playerName;
-    ActivityResultLauncher<Intent> resultLauncher;
-    boolean result_succeed;
-    HashMap<String,Object> record = new HashMap<>();
-    float result_seconds;
-    int current_level;
-    Record current_record;
+    private String playerName;
+    private ActivityResultLauncher<Intent> resultLauncher;
+    private boolean result_succeed;
+    private HashMap<String,Object> record = new HashMap<>();
+    private float result_seconds;
+    private int current_level;
+    private Record current_record;
 
 
     @Override

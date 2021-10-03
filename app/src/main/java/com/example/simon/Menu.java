@@ -30,8 +30,8 @@ import android.widget.TextView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class Menu extends AppCompatActivity {
-    MediaPlayer mMediaPlayer;
-    SharedPreferences menuSP;
+    private MediaPlayer mMediaPlayer;
+    private SharedPreferences menuSP;
 
     private void playMusic()
     {
