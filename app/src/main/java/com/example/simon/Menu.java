@@ -80,7 +80,6 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, LevelsMap.class);
-                //intent.putExtra("playerName", inputName.getText().toString());
                 startActivity(intent); // variable to collect user input
             }
         });
@@ -88,8 +87,8 @@ public class Menu extends AppCompatActivity {
         startExhBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText inputName = new EditText(Menu.this);
-                new AlertDialog.Builder(Menu.this).setTitle("Enter name")
+                EditText inputName = new EditText(Menu.this, null, 0, R.style.EditTextDefault);
+                new MaterialAlertDialogBuilder(Menu.this, R.style.ThemeOverlay_App_MaterialAlertDialog).setTitle("Enter name")
                         .setView(inputName)
                         .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {

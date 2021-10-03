@@ -11,10 +11,10 @@ public class Level {
     private final int EXPERT_ROW = 5;
     private final int EXPERT_COL = 5;
 
-    private final int ONE_TO_THREE_CARDS = 4;
-    private final int FOUR_TO_SEVEN_CARDS = 6;
-    private final int EIGHT_TO_TEN_CARDS = 10;
-    private final int ELEVEN_TO_UNLIMITED_CARDS = 13;
+    private final int EASY_CARDS = 4;
+    private final int MODERATE_CARDS = 6;
+    private final int HARD_CARDS = 10;
+    private final int EXPERT_CARDS = 13;
 
     private final int MAX_SPEED = 750;
     private final int MIN_SPEED = 150;
@@ -29,12 +29,14 @@ public class Level {
     public int cols;
     public int speed;
     public int cards;
+    public boolean reverseMode;
 
     public Level(int level) {
         this.level = level;
         calculateStructure();
         calculateCardsNumber();
         calculateSpeed();
+        setReverse();
     }
 
     private void calculateStructure()
@@ -43,19 +45,33 @@ public class Level {
             case 1:
             case 2:
             case 3:
-                rows = EASY_ROW;
-                cols = EASY_COL;
-                break;
             case 4:
             case 5:
             case 6:
             case 7:
+            case 8:
+                rows = EASY_ROW;
+                cols = EASY_COL;
+                break;
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
                 rows = MODERATE_ROW;
                 cols = MODERATE_COL;
                 break;
-            case 8:
-            case 9:
-            case 10:
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
                 rows = HARD_ROW;
                 cols = HARD_COL;
                 break;
@@ -72,21 +88,35 @@ public class Level {
             case 1:
             case 2:
             case 3:
-                cards = ONE_TO_THREE_CARDS;
-                break;
             case 4:
             case 5:
             case 6:
             case 7:
-                cards = FOUR_TO_SEVEN_CARDS;
-                break;
             case 8:
+                cards = EASY_CARDS;
+                break;
             case 9:
             case 10:
-                cards = EIGHT_TO_TEN_CARDS;
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+                cards = MODERATE_CARDS;
+                break;
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+                cards = HARD_CARDS;
                 break;
             default:
-                cards = ELEVEN_TO_UNLIMITED_CARDS;
+                cards = EXPERT_CARDS;
                 break;
         }
     }
@@ -97,5 +127,28 @@ public class Level {
             speed = MAX_SPEED - (50 * level);
         else
             speed = MIN_SPEED;
+    }
+
+    private void setReverse()
+    {
+        switch (level){
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
+                reverseMode = true;
+                break;
+            default:
+                reverseMode = false;
+                break;
+        }
     }
 }

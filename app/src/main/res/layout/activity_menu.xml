@@ -65,21 +65,21 @@
                 android:src="@drawable/letter_n" />
         </LinearLayout>
 
-        <TableLayout
+        <LinearLayout
             android:id="@+id/menu_table_layout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fillViewport="true"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TableRow>
                 <Button
                     android:id="@+id/start_car_Button"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Career Mode"
                     android:layout_margin="5dp"
+                    android:layout_gravity="bottom|left"
                     android:textColor="@color/white"
                     style="@style/Widget.MaterialComponents.Button"
                     android:backgroundTint="@color/weak"
@@ -88,40 +88,46 @@
                 <Button
                     android:id="@+id/start_exh_Button"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Exhibition Mode"
+                    android:layout_gravity="bottom|right"
                     android:layout_margin="5dp"
                     android:textColor="@color/white"
                     style="@style/Widget.MaterialComponents.Button"
                     android:backgroundTint="@color/weak"
                     />
 
-            </TableRow>
-            <TableRow>
-                <Button
-                    android:id="@+id/table_Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:text="Records table"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:backgroundTint="@color/weak"
-                    />
 
-                <CheckBox
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:layout_margin="5dp"
-                    android:drawablePadding="20dp"
-                    android:id="@+id/soundCheckbox"
-                    android:button="@null"
-                    android:background="@drawable/selector_sound"/>
-            </TableRow>
 
-        </TableLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:fillViewport="true"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/table_Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="Records table"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                style="@style/Widget.MaterialComponents.Button"
+                android:backgroundTint="@color/weak"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
-
+    <CheckBox
+        android:id="@+id/soundCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="5dp"
+        android:background="@drawable/selector_sound"
+        android:button="@null"
+        android:drawablePadding="20dp" />
 </FrameLayout>

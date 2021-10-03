@@ -60,7 +60,7 @@ public class LevelsMap extends AppCompatActivity {
 
         sp = getSharedPreferences("levels", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        //resetMap(editor);
+        resetMap(editor);
         editor.putBoolean(openedString(1), true);
         editor.putInt(starsString(1), 0);
         editor.commit();
@@ -133,16 +133,11 @@ public class LevelsMap extends AppCompatActivity {
                         current_level = Integer.valueOf(String.valueOf(((Button)v).getText()));
                         Intent intent = new Intent(LevelsMap.this, SimonLogic.class);
                         int level = Integer.valueOf(String.valueOf(((Button)v).getText()));
-                        if (level <= LEVELS_NUMBER / 2)
-                            intent.putExtra("level", Integer.valueOf(String.valueOf(((Button)v).getText())));
-                        else{
-                            intent.putExtra("level", Integer.valueOf(String.valueOf(((Button)v).getText())) - (LEVELS_NUMBER / 2));
-                            intent.putExtra("reverse", true);
-                        }
+                        intent.putExtra("level", level);
                         resultLauncher.launch(intent);
                     }
                 });
-                btn.setClickable(true);
+                btn.setClickable(false);
                 buttons.put(hashCounter, btn);
                 cellLayout.addView(btn);
 

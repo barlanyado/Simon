@@ -56,10 +56,11 @@ public class SimonLogic extends AppCompatActivity {
 
         /* Init all current round parameters */
         int level = getIntent().getIntExtra("level", 1);
-        reverse_mode = getIntent().getBooleanExtra("reverse", false);
+
+        currLevel = new Level(level);
+        reverse_mode = currLevel.reverseMode;
         if (reverse_mode)
             Toast.makeText(this, "Reverse Mode !", Toast.LENGTH_SHORT).show();
-        currLevel = new Level(level);
 
         initTableLayout(currLevel.rows);
         initCardsLayouts(currLevel.cols);
@@ -192,6 +193,7 @@ public class SimonLogic extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 playBtn.setText("Go !");
+                playBtn.setBackgroundColor(getResources().getColor(R.color.green));
             }
             @Override
             public void onFinish() {
@@ -235,10 +237,17 @@ public class SimonLogic extends AppCompatActivity {
         public void onTick(long millisUntilFinished) {
             progBar.setProgress(progBar.getProgress() + 1);
             int newProg = progBar.getProgress();
-            if (newProg >= currLevel.ORANGE_LINE * 20)
+            if (newProg >= currLevel.ORANGE_LINE * 20) {
                 progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.orange)), android.graphics.PorterDuff.Mode.SRC_IN);
-            else if (newProg >= currLevel.YELLOW_LINE * 20)
+                playBtn.setBackgroundColor(getResources().getColor(R.color.orange));
+                playBtn.setText("Almost Gone ! ! ! ! ");
+            }
+            else if (newProg >= currLevel.YELLOW_LINE * 20){
                 progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.yellow)), android.graphics.PorterDuff.Mode.SRC_IN);
+                playBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
+                playBtn.setText("Hurry Up . . . . ");
+            }
+
 
         }
 
@@ -246,6 +255,7 @@ public class SimonLogic extends AppCompatActivity {
         public void onFinish() {
             progBar.setProgress(progBar.getProgress() + 1);
             progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.red)), android.graphics.PorterDuff.Mode.SRC_IN);
+            playBtn.setBackgroundColor(getResources().getColor(R.color.red));
             playBtn.setText("OUT OF TIME !");
             deactivateCards();
             result_succeed = false;
@@ -259,7 +269,6 @@ public class SimonLogic extends AppCompatActivity {
         intent.putExtra("result_succeed", result_succeed);
         intent.putExtra("result_seconds", result_seconds);
         setResult(RESULT_OK, intent);
-        Toast.makeText(SimonLogic.this, "asdasdasd",Toast.LENGTH_LONG);
         finish();
     }
 }
