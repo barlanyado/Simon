@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class Menu extends AppCompatActivity {
-    private MediaPlayer mMediaPlayer;
+    private static MediaPlayer mMediaPlayer;
     private SharedPreferences menuSP;
     private CheckBox soundCheckBox;
 
@@ -44,19 +44,14 @@ public class Menu extends AppCompatActivity {
     }
 
 
-    private void soundOff()
+    public static void soundOff()
     {
         mMediaPlayer.pause();
-        SharedPreferences.Editor editor = menuSP.edit();
-        editor.putBoolean("soundOn", false);
-        editor.commit();
+
     }
-    private void soundOn()
+    public static void soundOn()
     {
         mMediaPlayer.start();
-        SharedPreferences.Editor editor = menuSP.edit();
-        editor.putBoolean("soundOn", true);
-        editor.commit();
     }
 
     @Override
@@ -124,10 +119,16 @@ public class Menu extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     soundOn();
+                    SharedPreferences.Editor editor = menuSP.edit();
+                    editor.putBoolean("soundOn", true);
+                    editor.commit();
 
                 }
                 else{
                     soundOff();
+                    SharedPreferences.Editor editor = menuSP.edit();
+                    editor.putBoolean("soundOn", false);
+                    editor.commit();
                 }
             }
         });

@@ -45,6 +45,7 @@ public class LevelsMap extends AppCompatActivity {
     private int current_level = 1;
     private boolean result_succeed = false;
     private int result_seconds = 0;
+    private SharedPreferences lmSP;
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     public int dpToPx(Context context, float dp) {
@@ -130,6 +131,8 @@ public class LevelsMap extends AppCompatActivity {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Menu.soundOff();
+
                         current_level = Integer.valueOf(String.valueOf(((Button)v).getText()));
                         Intent intent = new Intent(LevelsMap.this, SimonLogic.class);
                         int level = Integer.valueOf(String.valueOf(((Button)v).getText()));
@@ -163,6 +166,13 @@ public class LevelsMap extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        lmSP = getSharedPreferences("sound", MODE_PRIVATE);
+        if (lmSP.getBoolean("soundOn", true))
+            Menu.soundOn();
+        else
+            Menu.soundOff();
+
 
         if (result_succeed)
         {
