@@ -191,6 +191,7 @@ public class LevelsMap extends AppCompatActivity {
                 rating.setRating(rate);
 
                 LayerDrawable stars = (LayerDrawable) rating.getProgressDrawable();
+                stars.mutate();
 
                 switch ((int)rate){
                     case 1:
