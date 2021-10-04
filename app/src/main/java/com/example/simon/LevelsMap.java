@@ -60,7 +60,7 @@ public class LevelsMap extends AppCompatActivity {
 
         sp = getSharedPreferences("levels", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        resetMap(editor);
+        //resetMap(editor);
         editor.putBoolean(openedString(1), true);
         editor.putInt(starsString(1), 0);
         editor.commit();
