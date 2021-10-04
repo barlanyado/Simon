@@ -37,7 +37,6 @@ public class ExhibitionMode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exhibition_mode);
-        Log.i("CreateTest", "OnCreate");
         playerName = getIntent().getStringExtra("playerName");
         current_record = new Record(playerName);
         record.put("Name",playerName);
@@ -120,7 +119,6 @@ public class ExhibitionMode extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         List<HashMap<String,Object>> record_list;
-        Log.i("test", "onResume");
         if (this.result_succeed){
             callLevel(current_level+1);
             current_record.setScore(current_record.getScore()+calculateScore());
@@ -145,9 +143,6 @@ public class ExhibitionMode extends AppCompatActivity {
 
                 objOut.writeObject(record_list);
                 objOut.close();
-
-
-                Log.i("test",current_record.toString());
 
             } catch (FileNotFoundException e) {
                 FileOutputStream fos = null;

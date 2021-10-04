@@ -207,8 +207,6 @@ public class LevelsMap extends AppCompatActivity {
         }
     }
 
-
-
     private String openedString(int level)
     {
         return ("level_" + String.valueOf(level) + "_opened");
@@ -240,5 +238,4 @@ public class LevelsMap extends AppCompatActivity {
         }
         editor.commit();
     }
-
 }
