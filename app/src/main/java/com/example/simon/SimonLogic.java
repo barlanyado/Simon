@@ -36,7 +36,7 @@ public class SimonLogic extends AppCompatActivity {
     final private int HOLD_TIMER = 4000;  // in milliseconds
     final private int ONE_SECOND = 1000; // in milliseconds
     final private int FIFTHY_MILLISECONDS = 50; // in milliseconds
-    private boolean result_succeed;
+    private boolean result_succeed = false;
     private float result_seconds = 0;
 
     private boolean game_mode = false;
@@ -270,5 +270,11 @@ public class SimonLogic extends AppCompatActivity {
         intent.putExtra("result_seconds", result_seconds);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishGame();
+        super.onBackPressed();
     }
 }
