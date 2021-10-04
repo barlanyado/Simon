@@ -32,6 +32,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class Menu extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private SharedPreferences menuSP;
+    private CheckBox soundCheckBox;
 
     private void playMusic()
     {
@@ -41,6 +42,7 @@ public class Menu extends AppCompatActivity {
         mMediaPlayer.setLooping(true);
         //mMediaPlayer.start();
     }
+
 
     private void soundOff()
     {
@@ -116,12 +118,13 @@ public class Menu extends AppCompatActivity {
             }
         });
         playMusic();
-        CheckBox soundCheckBox = findViewById(R.id.soundCheckbox);
+        soundCheckBox = findViewById(R.id.soundCheckbox);
         soundCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     soundOn();
+
                 }
                 else{
                     soundOff();
@@ -129,11 +132,17 @@ public class Menu extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         menuSP = getSharedPreferences("sound", MODE_PRIVATE);
         if (menuSP.getBoolean("soundOn", true))
             soundCheckBox.setChecked(true);
         else
             soundCheckBox.setChecked(false);
-
     }
 }
