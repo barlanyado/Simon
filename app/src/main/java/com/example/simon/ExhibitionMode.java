@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -31,7 +32,7 @@ public class ExhibitionMode extends AppCompatActivity {
     private float result_seconds;
     private int current_level;
     private Record current_record;
-
+    private SharedPreferences emSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,7 @@ public class ExhibitionMode extends AppCompatActivity {
         super.onResume();
         List<HashMap<String,Object>> record_list;
         if (this.result_succeed){
+            Menu.soundOff();
             callLevel(current_level+1);
             current_record.setScore(current_record.getScore()+calculateScore());
             record.put("Score",(int)record.get("Score")+calculateScore());
@@ -127,6 +129,11 @@ public class ExhibitionMode extends AppCompatActivity {
         }
         else if (current_level > 1){
             record.put("Level",current_level-1);
+            emSP = getSharedPreferences("sound", MODE_PRIVATE);
+            if (emSP.getBoolean("soundOn", true))
+                Menu.soundOn();
+            else
+                Menu.soundOff();
 
             try {
 
@@ -169,7 +176,14 @@ public class ExhibitionMode extends AppCompatActivity {
             }
             finish();
         }
-        else
+        else {
+            record.put("Level", current_level - 1);
+            emSP = getSharedPreferences("sound", MODE_PRIVATE);
+            if (emSP.getBoolean("soundOn", true))
+                Menu.soundOn();
+            else
+                Menu.soundOff();
             finish();
+        }
     }
 }
