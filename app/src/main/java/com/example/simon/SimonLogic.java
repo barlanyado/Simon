@@ -179,9 +179,10 @@ public class SimonLogic extends AppCompatActivity {
             Card card = round.getRoundQueue().poll();
             round.fillValidationQueues(card);
             new CountDownTimer(currLevel.speed, 100) {
+                boolean touched = false;
                 MotionEvent motionEvent = MotionEvent.obtain(
                         SystemClock.uptimeMillis(),
-                        SystemClock.uptimeMillis() + 100,
+                        SystemClock.uptimeMillis(),
                         MotionEvent.ACTION_DOWN,
                         0.0f,
                         0.0f,
@@ -190,7 +191,10 @@ public class SimonLogic extends AppCompatActivity {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     card.setEnabled(true);
-                    card.dispatchTouchEvent(motionEvent);
+                    if (!touched) {
+                        card.dispatchTouchEvent(motionEvent);
+                        touched = true;
+                    }
                 }
 
                 @Override

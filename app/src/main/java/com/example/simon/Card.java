@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Card extends Button {
-    private static MediaPlayer mMediaPlayer;
+    private MediaPlayer mMediaPlayer;
     private String sound;
     private int gameColor;
     private boolean hidden;
@@ -27,9 +27,8 @@ public class Card extends Button {
         gameColor = 0;
         hidden = true;
         parentActivity = (SimonLogic) context;
-        mMediaPlayer = new MediaPlayer();
-
         initCard();
+        mMediaPlayer = new MediaPlayer();
 
     }
 
@@ -77,15 +76,17 @@ public class Card extends Button {
                 Card b = findViewById(v.getId());
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        parentActivity.cardTouchHandler(b);
                         b.setBackgroundColor(b.getGameColor());
                         mMediaPlayer = MediaPlayer.create(parentActivity, getSoundID());
-                        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mMediaPlayer.setLooping(true);
-                        mMediaPlayer.start();
-                        parentActivity.cardTouchHandler(b);
+                        b.mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        b.mMediaPlayer.setLooping(false);
+                        b.mMediaPlayer.start();
+                        Log.i("ActionDOwnEvent", "HERE!");
                         break;
                     case MotionEvent.ACTION_UP:
-                        mMediaPlayer.stop();
+                        b.mMediaPlayer.stop();
+                        b.mMediaPlayer.release();
                         b.setHidden();
                         break;
                 }
