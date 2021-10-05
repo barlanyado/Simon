@@ -78,15 +78,22 @@ public class Card extends Button {
                     case MotionEvent.ACTION_DOWN:
                         parentActivity.cardTouchHandler(b);
                         b.setBackgroundColor(b.getGameColor());
-                        mMediaPlayer = MediaPlayer.create(parentActivity, getSoundID());
+                        b.mMediaPlayer = MediaPlayer.create(parentActivity, b.getSoundID());
                         b.mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         b.mMediaPlayer.setLooping(false);
                         b.mMediaPlayer.start();
                         Log.i("ActionDOwnEvent", "HERE!");
                         break;
                     case MotionEvent.ACTION_UP:
-                        b.mMediaPlayer.stop();
-                        b.mMediaPlayer.release();
+                        try {
+                            b.mMediaPlayer.stop();
+                            b.mMediaPlayer.release();
+                        }
+                        catch (Exception IllegalStateException)
+                        {
+                            Log.i("EXP", "GOTCHAAAAA!");
+                            b.mMediaPlayer.release();
+                        }
                         b.setHidden();
                         break;
                 }
@@ -109,7 +116,7 @@ public class Card extends Button {
     private int getSoundID()
     {
         switch (this.sound){
-            case "do.wav":
+            case "do_.wav":
                 return R.raw.do_;
             case "re.wav":
                 return R.raw.re;
