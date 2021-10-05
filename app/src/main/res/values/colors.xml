@@ -12,6 +12,9 @@
     <color name="red">#EA6868</color>
     <color name="blue">#4FC3F7</color>
     <color name="yellow">#FFF176</color>
+    <color name="purple">#744DBA</color>
+    <color name="pink">#FFA4C1</color>
+    <color name="azure">#00BCD4</color>
     <color name="weak">#BBDEFB</color>
     <color name="weak_grey">#DFE1E3</color>
     <color name="weak_grey_bg">#FFD4DBE0</color>

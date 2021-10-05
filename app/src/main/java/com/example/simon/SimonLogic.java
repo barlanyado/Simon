@@ -108,15 +108,31 @@ public class SimonLogic extends AppCompatActivity {
             switch (card.getGameColor()) {
                 case 0:
                     card.setColor((getResources().getColor(R.color.red)));
+                    //card.setSound("do.wav");
                     break;
                 case 1:
                     card.setColor((getResources().getColor(R.color.blue)));
+                    card.setSound("re.wav");
                     break;
                 case 2:
                     card.setColor((getResources().getColor(R.color.green)));
+                    card.setSound("mi.wav");
                     break;
                 case 3:
                     card.setColor((getResources().getColor(R.color.yellow)));
+                    card.setSound("fa.wav");
+                    break;
+                case 4:
+                    card.setColor((getResources().getColor(R.color.purple)));
+                    card.setSound("sol.wav");
+                    break;
+                case 5:
+                    card.setColor((getResources().getColor(R.color.pink)));
+                    card.setSound("la.wav");
+                    break;
+                case 6:
+                    card.setColor((getResources().getColor(R.color.blue)));
+                    card.setSound("si.wav");
                     break;
             }
         }

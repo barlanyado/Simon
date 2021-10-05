@@ -2,6 +2,8 @@ package com.example.simon;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,7 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Card extends Button {
-
+    private static MediaPlayer mMediaPlayer;
+    private String sound;
     private int gameColor;
     private boolean hidden;
     private static GradientDrawable cardHideShape;
@@ -24,6 +27,8 @@ public class Card extends Button {
         gameColor = 0;
         hidden = true;
         parentActivity = (SimonLogic) context;
+        mMediaPlayer = new MediaPlayer();
+
         initCard();
 
     }
@@ -73,9 +78,14 @@ public class Card extends Button {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         b.setBackgroundColor(b.getGameColor());
+                        mMediaPlayer = MediaPlayer.create(parentActivity, getSoundID());
+                        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mMediaPlayer.setLooping(true);
+                        mMediaPlayer.start();
                         parentActivity.cardTouchHandler(b);
                         break;
                     case MotionEvent.ACTION_UP:
+                        mMediaPlayer.stop();
                         b.setHidden();
                         break;
                 }
@@ -84,9 +94,40 @@ public class Card extends Button {
         });
     }
 
+    public void setSound(String sound)
+    {
+        this.sound = sound;
+    }
     public static int randomColor()
     {
         Random random = new Random();
-        return random.nextInt(4);
+        return random.nextInt(7);
     }
+
+
+    private int getSoundID()
+    {
+        switch (this.sound){
+            case "do.wav":
+                return R.raw.do_;
+            case "re.wav":
+                return R.raw.re;
+            case "si.wav":
+                return R.raw.si;
+            case "mi.wav":
+                return R.raw.mi;
+            case "fa.wav":
+                return R.raw.fa;
+            case "sol.wav":
+                return R.raw.sol;
+            case "la.wav":
+                return R.raw.la;
+        }
+        return -1;
+    }
+
+
+
+
+
 }
