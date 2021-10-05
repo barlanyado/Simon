@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">" סיימון"</string>
+    <string name="career_mode_btn">מצב קריירה</string>
+    <string name="exh_mode_btn">מצב יחיד</string>
+    <string name="records_table_btn">טבלת שיאים</string>
+    <string name="reverse_toast">מצב רברס !</string>
+    <string name="wrong">לא נכון !</string>
+    <string name="excellent">מעולה !</string>
+    <string name="almost_gone">זה כמעט הסוף . . .</string>
+    <string name="hurry_up">תמהר !</string>
+    <string name="out_of_time">נגמר הזמן !</string>
+    <string name="start">התחל</string>
+    <string name="enter_name_dialog">הכנס שם</string>
+    <string name="cancel">בטל</string>
+    <string name="lets_play">בוא נתחיל !</string>
+    <string name="go">רוץ !</string>
+    <string name="rate">דירוג</string>
+    <string name="name">שם</string>
+    <string name="score">ניקוד</string>
+    <string name="level">רמה</string>
 </resources>

@@ -60,7 +60,7 @@ public class SimonLogic extends AppCompatActivity {
         currLevel = new Level(level);
         reverse_mode = currLevel.reverseMode;
         if (reverse_mode)
-            Toast.makeText(this, "Reverse Mode !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.reverse_toast, Toast.LENGTH_SHORT).show();
 
         initTableLayout(currLevel.rows);
         initCardsLayouts(currLevel.cols);
@@ -192,7 +192,7 @@ public class SimonLogic extends AppCompatActivity {
         new CountDownTimer(FIFTHY_MILLISECONDS * 3, FIFTHY_MILLISECONDS) {
             @Override
             public void onTick(long millisUntilFinished) {
-                playBtn.setText("Go !");
+                playBtn.setText(R.string.go);
                 playBtn.setBackgroundColor(getResources().getColor(R.color.green));
             }
             @Override
@@ -210,7 +210,7 @@ public class SimonLogic extends AppCompatActivity {
         {
             Card nextCard = reverse_mode ? round.getReverseValidationQueue().pop() : round.getValidationQueue().poll();
             if (card != nextCard ) {
-                playBtn.setText("WRONG !");
+                playBtn.setText(R.string.wrong);
                 deactivateCards();
                 game.cancel();
                 result_succeed = false;
@@ -218,7 +218,7 @@ public class SimonLogic extends AppCompatActivity {
             }
             else if (card == nextCard && round.isValidationEmpty())
             {
-                playBtn.setText("EXCELLENT !");
+                playBtn.setText(R.string.excellent);
                 deactivateCards();
                 game.cancel();
                 result_succeed = true;
@@ -240,12 +240,12 @@ public class SimonLogic extends AppCompatActivity {
             if (newProg >= currLevel.ORANGE_LINE * 20) {
                 progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.orange)), android.graphics.PorterDuff.Mode.SRC_IN);
                 playBtn.setBackgroundColor(getResources().getColor(R.color.orange));
-                playBtn.setText("Almost Gone ! ! ! ! ");
+                playBtn.setText(R.string.almost_gone);
             }
             else if (newProg >= currLevel.YELLOW_LINE * 20){
                 progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.yellow)), android.graphics.PorterDuff.Mode.SRC_IN);
                 playBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
-                playBtn.setText("Hurry Up . . . . ");
+                playBtn.setText(R.string.hurry_up);
             }
 
 
@@ -256,7 +256,7 @@ public class SimonLogic extends AppCompatActivity {
             progBar.setProgress(progBar.getProgress() + 1);
             progBar.getProgressDrawable().setColorFilter((getResources().getColor(R.color.red)), android.graphics.PorterDuff.Mode.SRC_IN);
             playBtn.setBackgroundColor(getResources().getColor(R.color.red));
-            playBtn.setText("OUT OF TIME !");
+            playBtn.setText(R.string.out_of_time);
             deactivateCards();
             result_succeed = false;
             finishGame();

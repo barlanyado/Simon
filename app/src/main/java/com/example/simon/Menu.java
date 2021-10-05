@@ -90,9 +90,9 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText inputName = new EditText(Menu.this, null, 0, R.style.EditTextDefault);
-                new MaterialAlertDialogBuilder(Menu.this, R.style.ThemeOverlay_App_MaterialAlertDialog).setTitle("Enter name")
+                new MaterialAlertDialogBuilder(Menu.this, R.style.ThemeOverlay_App_MaterialAlertDialog).setTitle(R.string.enter_name_dialog)
                         .setView(inputName)
-                        .setPositiveButton("Start", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.start, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel(); // closes dialog
                                 Intent intent = new Intent(Menu.this, ExhibitionMode.class);
@@ -100,7 +100,7 @@ public class Menu extends AppCompatActivity {
                                 startActivity(intent); // variable to collect user input
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel(); // closes dialog
                             }

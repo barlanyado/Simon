@@ -19,7 +19,7 @@
         android:id="@+id/play_Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Let's Play !"
+        android:text="@string/lets_play"
         android:textColor="@color/white"
         android:backgroundTint="@color/weak_grey_bg"
         />

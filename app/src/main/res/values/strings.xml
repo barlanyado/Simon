@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Simon</string>
+    <string name="career_mode_btn">Career Mode</string>
+    <string name="exh_mode_btn">Exhibition Mode</string>
+    <string name="records_table_btn">Records Table</string>
+    <string name="reverse_toast">Reverse Mode !</string>
+    <string name="wrong">WRONG !</string>
+    <string name="excellent">EXCELLENT !</string>
+    <string name="almost_gone">ALMOST GONE . . .</string>
+    <string name="hurry_up">Hurry up !</string>
+    <string name="out_of_time">OUT OF TIME !</string>
+    <string name="enter_name_dialog">Enter Name</string>
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>
+    <string name="lets_play">Let\'s Play !</string>
+    <string name="go">Go !</string>
+    <string name="rate">Rate</string>
+    <string name="name">Name</string>
+    <string name="level">Level</string>
+    <string name="score">Score</string>
 </resources>
