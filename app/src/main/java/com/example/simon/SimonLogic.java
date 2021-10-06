@@ -79,6 +79,7 @@ public class SimonLogic extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.setClickable(false);
+                Card.soundAllowed = true;
                 showRound();
             }
         });
@@ -195,6 +196,7 @@ public class SimonLogic extends AppCompatActivity {
                         card.dispatchTouchEvent(motionEvent);
                         touched = true;
                     }
+                    //card.setEnabled(false);
                 }
 
                 @Override
@@ -285,6 +287,7 @@ public class SimonLogic extends AppCompatActivity {
 
     private void finishGame()
     {
+        Card.soundAllowed = false;
         Intent intent = new Intent();
         intent.putExtra("result_succeed", result_succeed);
         intent.putExtra("result_seconds", result_seconds);
@@ -297,4 +300,5 @@ public class SimonLogic extends AppCompatActivity {
         finishGame();
         super.onBackPressed();
     }
+
 }

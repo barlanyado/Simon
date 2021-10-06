@@ -16,20 +16,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Card extends Button {
+
+    private final int DOWN = 1;
+    private final int UP = 0;
+
     private MediaPlayer mMediaPlayer;
     private String sound;
     private int gameColor;
     private boolean hidden;
     private static GradientDrawable cardHideShape;
     private SimonLogic parentActivity;
+    private int lastAction;
+    public static boolean soundAllowed;
+
     public Card(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         gameColor = 0;
         hidden = true;
         parentActivity = (SimonLogic) context;
-        initCard();
         mMediaPlayer = new MediaPlayer();
-
+        initCard();
     }
 
     private void initCardHiddenShape()
@@ -69,6 +75,7 @@ public class Card extends Button {
         this.setHidden();
         this.setColor(randomColor());
         this.setEnabled(false); // set card untouchable at first
+        this.lastAction = UP;
 
         this.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -76,24 +83,21 @@ public class Card extends Button {
                 Card b = findViewById(v.getId());
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        parentActivity.cardTouchHandler(b);
-                        b.setBackgroundColor(b.getGameColor());
-                        b.mMediaPlayer = MediaPlayer.create(parentActivity, b.getSoundID());
-                        b.mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        b.mMediaPlayer.setLooping(false);
-                        b.mMediaPlayer.start();
-                        Log.i("ActionDOwnEvent", "HERE!");
+                        if (b.lastAction == UP) {
+                            b.lastAction = DOWN;
+                            b.setBackgroundColor(b.getGameColor());
+                            if (soundAllowed) {
+                                b.mMediaPlayer = MediaPlayer.create(parentActivity, b.getSoundID());
+                                b.mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                b.mMediaPlayer.setLooping(false);
+                                b.mMediaPlayer.start();
+                            }
+                            parentActivity.cardTouchHandler(b);
+                            Log.i("ActionDOwnEvent", "HERE!");
+                        }
                         break;
                     case MotionEvent.ACTION_UP:
-                        try {
-                            b.mMediaPlayer.stop();
-                            b.mMediaPlayer.release();
-                        }
-                        catch (Exception IllegalStateException)
-                        {
-                            Log.i("EXP", "GOTCHAAAAA!");
-                            b.mMediaPlayer.release();
-                        }
+                        b.lastAction = UP;
                         b.setHidden();
                         break;
                 }
@@ -133,9 +137,5 @@ public class Card extends Button {
         }
         return -1;
     }
-
-
-
-
 
 }
