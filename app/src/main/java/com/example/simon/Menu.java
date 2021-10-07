@@ -2,6 +2,11 @@ package com.example.simon;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import java.io.IOException;
 import java.lang.String;
@@ -29,35 +34,19 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class Menu extends AppCompatActivity {
+public class Menu extends AppCompatActivity implements LifecycleObserver {
     private static MediaPlayer mMediaPlayer;
     private SharedPreferences menuSP;
     private CheckBox soundCheckBox;
+    //LifecycleOwner processLifecycleOwner;
 
-    private void playMusic()
-    {
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer = MediaPlayer.create(this, R.raw.background_sound);
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.setLooping(true);
-        //mMediaPlayer.start();
-    }
-
-
-    public static void soundOff()
-    {
-        mMediaPlayer.pause();
-
-    }
-    public static void soundOn()
-    {
-        mMediaPlayer.start();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
+
         ImageView letterS = findViewById(R.id.letter_s_view);
         ImageView letterI = findViewById(R.id.letter_i_view);
         ImageView letterM = findViewById(R.id.letter_m_view);
@@ -137,6 +126,26 @@ public class Menu extends AppCompatActivity {
 
     }
 
+    private void playMusic()
+    {
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = MediaPlayer.create(this, R.raw.background_sound);
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setLooping(true);
+        //mMediaPlayer.start();
+    }
+
+
+    public static void soundOff()
+    {
+        mMediaPlayer.pause();
+
+    }
+    public static void soundOn()
+    {
+        mMediaPlayer.start();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -149,6 +158,11 @@ public class Menu extends AppCompatActivity {
                 soundCheckBox.setChecked(true);
         else
             soundCheckBox.setChecked(false);
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    public void onAppBackgrounded() {
+        soundOff();
     }
 
 }
