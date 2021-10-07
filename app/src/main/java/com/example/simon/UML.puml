@@ -1,0 +1,214 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Card extends Button
+{
+    - DOWN : int {readOnly}
+    - UP : int {readOnly}
+    - mMediaPlayer : MediaPlayer
+    - sound : String
+    - gameColor : int
+    - hidden : boolean
+    - {static} cardHideShape: GradientDrawable
+    - parentActivity: SimonLogic
+    - lastAction : int
+    + {static} soundAllowed : boolean
+
+    + Card(context: Context, attrs: AttributeSet)
+    - void initCardHiddenShape()
+    + void setHidden()
+    + void setColor(int color)
+    + int getGameColor()
+    - void initCard()
+    + void setSound(String sound)
+    + {static} int randomColor()
+    - int getSoundID()
+
+}
+
+
+class ExhibitionMode extends AppCompatActivity {
+
+    - playerName : String
+    - resultLauncher: ActivityResultLauncher<Intent>
+    - result_succeed: boolean
+    - record : HashMap<String,Object>
+    - result_seconds: float
+    - current_level : int
+    - current_record : Record
+    - emSP : SharedPreferences
+    - current_score : int
+
+    # void onCreate(savedInstanceState: Bundle)
+    - void initLauncher()
+    - void callLevel(current_level: int)
+    - int calculateScore()
+    - List<HashMap<String, Object>> sortRecords(record_list: List<HashMap<String, Object>>)
+    # void onResume()
+}
+
+class Level {
+
+    - EASY_ROW : int {readOnly}
+    - EASY_COL : int {readOnly}
+    - MODERATE_ROW : int {readOnly}
+    - MODERATE_COL : int {readOnly}
+    - HARD_ROW : int {readOnly}
+    - HARD_COL : int {readOnly}
+    - EXPERT_ROW : int {readOnly}
+    - EXPERT_COL : int {readOnly}
+
+    - EASY_CARDS : int {readOnly}
+    - MODERATE_CARDS : int {readOnly}
+    - HARD_CARDS : int {readOnly}
+    - EXPERT_CARDS : int {readOnly}
+
+    - MAX_SPEED : int {readOnly}
+    - MIN_SPEED : int {readOnly}
+
+    + ROUND_TIME: int
+    + YELLOW_LINE : int
+    + ORANGE_LINE: int
+
+    - level : int
+    + rows : int
+    + cols : int
+    + speed : int
+    + cards : int
+    + reverseMode : boolean
+
+    + Level(level: int)
+    - void calculateStructure()
+    - void calculateCardsNumber()
+    - void calculateSpeed()
+    - void setReverse()
+}
+
+class LevelsMap extends AppCompatActivity {
+
+    - LEVELS_NUMBER : int {readOnly}
+    - STARS_NUMBER : int {readOnly}
+    - LEVELS_IN_ROW : int {readOnly}
+    - ROWS_NUMBER : int {readOnly}
+
+    - resultLauncher : ActivityResultLauncher<Intent>
+    - rating : HashMap<Integer, RatingBar>
+    - buttons : HashMap<Integer, Button>
+    - rows : HashMap<Integer, TableRow>
+    - tableLayout : TableLayout
+    - sp : SharedPreferences
+    - current_level : int
+    - result_succeed : boolean
+    - result_seconds : int
+    - lmSP : SharedPreferences
+
+    + int dpToPx(context: Context, dp: float)
+    # void onCreate(savedInstanceState: Bundle)
+    - void initLauncher()
+    - void initMap()
+    # void onResume()
+    - String openedString(level: int)
+    - String starsString(level: int)
+    - int calculateScore()
+    - void resetMap(editor: SharedPreferences.Editor)
+}
+
+class Menu extends AppCompatActivity implements LifecycleObserver {
+    - {static} mMediaPlayer : MediaPlayer
+    - menuSP : SharedPreferences
+    - soundCheckBox : CheckBox
+
+    # void onCreate(Bundle savedInstanceState)
+    - void playMusic()
+    + {static} void soundOff()
+    + {static} void soundOn()
+
+    # void onResume()
+
+}
+
+
+class Record implements Serializable {
+
+    - name : String {readOnly}
+    - score : int
+    - level : int
+    - rate : int
+
+    + Record(name: String)
+    + String getName()
+    + int getLevel()
+    + void setLevel(level: int)
+    + int getScore()
+    + void setScore(score: int)
+    + int getRate()
+    + void setRate(rate: int)
+    + String toString()
+}
+
+class RecordsTable extends AppCompatActivity {
+
+    - lmSP : SharedPreferences
+    + void onCreate(savedInstanceState: Bundle)
+    # void onResume()
+}
+
+class Round {
+
+    - roundQueue : LinkedBlockingQueue<Card>
+    - validationQueue : LinkedBlockingQueue<Card>
+    - reverseValidationQueue : Stack<Card>
+    - cards : HashMap<Integer, Card>
+    - cardsNumber : Integer
+    - roundLength : Integer
+
+    + Round(roundLength: int, cards: HashMap<Integer, Card>)
+    - void randomizeRound()
+    + LinkedBlockingQueue<Card> getRoundQueue()
+    + LinkedBlockingQueue<Card> getValidationQueue()
+    + Stack<Card> getReverseValidationQueue()
+    + boolean isValidationEmpty()
+    + void fillValidationQueues(card: Card)
+
+}
+
+class SimonLogic extends AppCompatActivity {
+
+    - HOLD_TIMER : int {readOnly}
+    - ONE_SECOND : int {readOnly}
+    - FIFTHY_MILLISECONDS : int {readOnly}
+    - result_succeed : boolean
+    - result_seconds : float
+
+    - game_mode : boolean
+    - reverse_mode : boolean
+    - rows : HashMap<Integer, TableRow>
+    - cards : HashMap<Integer, Card>
+    - round : Round
+    - playBtn : Button
+    - progBar : ProgressBar
+    - game : gameTimer
+    - Level currLevel
+
+    # void onCreate(Bundle savedInstanceState)
+    - void activateCards()
+    - void deactivateCards()
+    - void initColors()
+    - void initTableLayout(row: int)
+    - void initCardsLayouts(col: int)
+    - void showRound()
+    - void prePlay()
+    + void cardTouchHandler(Card card)
+    - void finishGame()
+    + void onBackPressed()
+
+}
+
+SimonLogic *-- Level
+SimonLogic *-- Round
+SimonLogic +-- gameTimer
+Card *-- SimonLogic
+ExhibitionMode *-- Record
+
+
+@enduml
