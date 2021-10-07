@@ -140,10 +140,15 @@ public class Menu extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("test","test");
         menuSP = getSharedPreferences("sound", MODE_PRIVATE);
         if (menuSP.getBoolean("soundOn", true))
-            soundCheckBox.setChecked(true);
+            if (soundCheckBox.isChecked())
+                soundOn();
+            else
+                soundCheckBox.setChecked(true);
         else
             soundCheckBox.setChecked(false);
     }
+
 }

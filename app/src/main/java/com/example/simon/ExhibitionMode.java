@@ -33,6 +33,7 @@ public class ExhibitionMode extends AppCompatActivity {
     private int current_level;
     private Record current_record;
     private SharedPreferences emSP;
+    private int current_score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ExhibitionMode extends AppCompatActivity {
         record.put("Score",0);
         result_succeed = true;
         current_level = 0;
+        current_score = 0;
         initLauncher();
 
     }
@@ -123,12 +125,15 @@ public class ExhibitionMode extends AppCompatActivity {
         if (this.result_succeed){
             Menu.soundOff();
             callLevel(current_level+1);
-            current_record.setScore(current_record.getScore()+calculateScore());
-            record.put("Score",(int)record.get("Score")+calculateScore());
+            if (current_level != 0)
+                current_score += calculateScore();
+            //current_record.setScore(current_record.getScore()+calculateScore());
+            //record.put("Score",(int)record.get("Score")+calculateScore());
             this.current_level++;
         }
         else if (current_level > 1){
             record.put("Level",current_level-1);
+            record.put("Score",current_score);
             emSP = getSharedPreferences("sound", MODE_PRIVATE);
             if (emSP.getBoolean("soundOn", true))
                 Menu.soundOn();

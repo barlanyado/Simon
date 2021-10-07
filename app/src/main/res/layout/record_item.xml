@@ -7,13 +7,13 @@
     android:orientation="horizontal"
     tools:context=".RecordsTable">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="30sp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:textSize="17sp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="60dp"
         android:id="@+id/rate_list"/>
     <TextView
         android:layout_width="75sp"
@@ -29,7 +29,7 @@
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:textSize="17sp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="95dp"
         android:id="@+id/level_list"
         tools:ignore="MissingConstraints" />
     <TextView
