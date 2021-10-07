@@ -1,6 +1,7 @@
 package com.example.simon;
 
 import android.app.ListActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Layout;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class RecordsTable extends AppCompatActivity {
 
+    private SharedPreferences lmSP;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,5 +44,16 @@ public class RecordsTable extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        lmSP = getSharedPreferences("sound", MODE_PRIVATE);
+        if (lmSP.getBoolean("soundOn", true))
+            Menu.soundOn();
+        else
+            Menu.soundOff();
     }
 }
