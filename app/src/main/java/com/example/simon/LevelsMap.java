@@ -145,7 +145,7 @@ public class LevelsMap extends AppCompatActivity {
                         resultLauncher.launch(intent);
                     }
                 });
-                btn.setClickable(true);
+                btn.setClickable(false);
                 buttons.put(hashCounter, btn);
                 cellLayout.addView(btn);
 

@@ -135,9 +135,6 @@ public class SimonLogic extends AppCompatActivity {
                     card.setColor((getResources().getColor(R.color.blue)));
                     card.setSound("si.wav");
                     break;
-                default:
-                    int i = 1;
-                    i = i + 2;
             }
         }
     }
@@ -199,7 +196,6 @@ public class SimonLogic extends AppCompatActivity {
                         card.dispatchTouchEvent(motionEvent);
                         touched = true;
                     }
-                    //card.setEnabled(false);
                 }
 
                 @Override
