@@ -31,7 +31,6 @@ public class ExhibitionMode extends AppCompatActivity {
     private HashMap<String,Object> record = new HashMap<>();
     private float result_seconds;
     private int current_level;
-    private Record current_record;
     private SharedPreferences emSP;
     private int current_score;
 
@@ -40,7 +39,6 @@ public class ExhibitionMode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exhibition_mode);
         playerName = getIntent().getStringExtra("playerName");
-        current_record = new Record(playerName);
         record.put("Name",playerName);
         record.put("Level",1);
         record.put("Rate",0);
