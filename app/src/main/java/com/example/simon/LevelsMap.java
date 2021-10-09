@@ -178,7 +178,8 @@ public class LevelsMap extends AppCompatActivity {
         {
             sp = getSharedPreferences("levels", MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
-            editor.putInt(starsString(current_level), calculateScore());
+            if ((int)sp.getInt(starsString(current_level),0) < calculateScore())
+                editor.putInt(starsString(current_level), calculateScore());
             editor.putBoolean(openedString(current_level + 1), true);
             editor.commit();
         }

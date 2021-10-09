@@ -1,26 +1,11 @@
 package com.example.simon;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.OnLifecycleEvent;
-import androidx.lifecycle.ProcessLifecycleOwner;
-
-import java.io.IOException;
-import java.lang.String;
-import java.util.concurrent.TimeUnit;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,8 +14,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -38,7 +27,6 @@ public class Menu extends AppCompatActivity implements LifecycleObserver {
     private static MediaPlayer mMediaPlayer;
     private SharedPreferences menuSP;
     private CheckBox soundCheckBox;
-    //LifecycleOwner processLifecycleOwner;
 
 
     @Override
@@ -132,7 +120,6 @@ public class Menu extends AppCompatActivity implements LifecycleObserver {
         mMediaPlayer = MediaPlayer.create(this, R.raw.background_sound);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.setLooping(true);
-        //mMediaPlayer.start();
     }
 
 
@@ -149,7 +136,6 @@ public class Menu extends AppCompatActivity implements LifecycleObserver {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("test","test");
         menuSP = getSharedPreferences("sound", MODE_PRIVATE);
         if (menuSP.getBoolean("soundOn", true))
             if (soundCheckBox.isChecked())
