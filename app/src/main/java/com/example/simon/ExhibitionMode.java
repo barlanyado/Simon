@@ -1,18 +1,15 @@
 package com.example.simon;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
-import java.io.FileDescriptor;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -159,7 +156,6 @@ public class ExhibitionMode extends AppCompatActivity {
                 try {
                     fos = openFileOutput("records",MODE_PRIVATE);
                     ObjectOutputStream objOut = new ObjectOutputStream(fos);
-                    current_record.setRate(1);
                     record.put("Rate",1);
                     record_list = new ArrayList<>();
                     record_list.add(record);
