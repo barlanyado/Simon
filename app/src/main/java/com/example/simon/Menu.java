@@ -38,7 +38,6 @@ public class Menu extends AppCompatActivity implements LifecycleObserver {
     private static MediaPlayer mMediaPlayer;
     private SharedPreferences menuSP;
     private CheckBox soundCheckBox;
-    //LifecycleOwner processLifecycleOwner;
 
 
     @Override
@@ -132,7 +131,6 @@ public class Menu extends AppCompatActivity implements LifecycleObserver {
         mMediaPlayer = MediaPlayer.create(this, R.raw.background_sound);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mMediaPlayer.setLooping(true);
-        //mMediaPlayer.start();
     }
 
 
@@ -149,7 +147,6 @@ public class Menu extends AppCompatActivity implements LifecycleObserver {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("test","test");
         menuSP = getSharedPreferences("sound", MODE_PRIVATE);
         if (menuSP.getBoolean("soundOn", true))
             if (soundCheckBox.isChecked())
