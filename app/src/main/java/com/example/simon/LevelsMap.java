@@ -59,12 +59,20 @@ public class LevelsMap extends AppCompatActivity {
         tableLayout = findViewById(R.id.root_levels_table_layout);
         initLauncher();
 
-        sp = getSharedPreferences("levels", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        //resetMap(editor);
-        editor.putBoolean(openedString(1), true);
-        editor.putInt(starsString(1), 0);
-        editor.commit();
+        SharedPreferences firstRunSP = getSharedPreferences("firstRun", MODE_PRIVATE);
+        if (firstRunSP.getBoolean("first", true))
+        {
+            SharedPreferences.Editor firstRunEditor = firstRunSP.edit();
+            firstRunEditor.putBoolean("first", false);
+            firstRunEditor.commit();
+            // --------------------------- //
+            sp = getSharedPreferences("levels", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            //resetMap(editor);
+            editor.putBoolean(openedString(1), true);
+            editor.putInt(starsString(1), 0);
+            editor.commit();
+        }
 
         initMap();
 
