@@ -1,5 +1,6 @@
 package com.example.simon;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
@@ -29,8 +30,10 @@ public class Round {
     {
         for (int i = 0; i < roundLength; i++)
         {
-            Random random = new Random();
-            Card card = cards.get(random.nextInt(cardsNumber));
+            SecureRandom random = new SecureRandom();
+            int num =  random.nextInt((cardsNumber + 1) * 1000000);
+            num += num < 1000000 ? 1000000 : 0;
+            Card card = cards.get((num / 1000000) - 1);
             roundQueue.add(card);
 
         }

@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableRow;
+
+import java.security.SecureRandom;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,8 @@ public class Card extends Button {
     private SimonLogic parentActivity;
     private int lastAction;
     public static boolean soundAllowed;
+
+    private static boolean[] colorsVector = { false, false, false, false, false, false, false };
 
     public Card(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -73,7 +77,7 @@ public class Card extends Button {
         this.setPadding(10, 10, 10, 10);
         initCardHiddenShape();
         this.setHidden();
-        this.setColor(randomColor());
+        this.setColor(this.randomColor());
         this.setEnabled(false); // set card untouchable at first
         this.lastAction = UP;
 
@@ -110,12 +114,23 @@ public class Card extends Button {
     {
         this.sound = sound;
     }
-    public static int randomColor()
+    private int randomColor()
     {
-        Random random = new Random();
-        return random.nextInt(7);
+        boolean finished = false;
+        int num = -1;
+        while (!finished)
+        {
+            SecureRandom random = new SecureRandom();
+            num =  random.nextInt(8000000);
+            num += num < 1000000 ? 1000000 : 0;
+            num = (num / 1000000) - 1;
+            if (!colorsVector[num])
+                colorsVector[num] = finished = true;
+        }
+        if (isColorsVectorFull())
+            initColorsVector();
+        return num;
     }
-
 
     private int getSoundID()
     {
@@ -136,6 +151,20 @@ public class Card extends Button {
                 return R.raw.la;
         }
         return -1;
+    }
+
+    private boolean isColorsVectorFull()
+    {
+        boolean res = true;
+        for (int i = 0; i< 7;i++)
+            res = res && colorsVector[i];
+        return res;
+    }
+
+    private void initColorsVector()
+    {
+        for (int i = 0; i< 7;i++)
+            colorsVector[i] = false;
     }
 
 }

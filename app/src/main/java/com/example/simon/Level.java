@@ -17,7 +17,7 @@ public class Level {
     private final int EXPERT_CARDS = 13;
 
     private final int MAX_SPEED = 750;
-    private final int MIN_SPEED = 150;
+    private final int MIN_SPEED = 200;
 
 
     public int ROUND_TIME = 10000; // in milliseconds
@@ -124,7 +124,7 @@ public class Level {
     private void calculateSpeed()
     {
         if (level <= 12)
-            speed = MAX_SPEED - (50 * level);
+            speed = MAX_SPEED - (45 * level);
         else
             speed = MIN_SPEED;
     }

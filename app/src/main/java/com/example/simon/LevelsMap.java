@@ -145,7 +145,7 @@ public class LevelsMap extends AppCompatActivity {
                         resultLauncher.launch(intent);
                     }
                 });
-                btn.setClickable(false);
+                btn.setClickable(true);
                 buttons.put(hashCounter, btn);
                 cellLayout.addView(btn);
 
@@ -236,11 +236,11 @@ public class LevelsMap extends AppCompatActivity {
 
     private int calculateScore()
     {
-        if (result_seconds < 1.5)
+        if (result_seconds < 2.5)
             return  3;
-        else if (result_seconds < 3)
-            return 2;
         else if (result_seconds < 6)
+            return 2;
+        else if (result_seconds < 10)
             return 1;
         else
             return 0;

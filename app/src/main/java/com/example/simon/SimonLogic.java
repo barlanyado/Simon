@@ -135,6 +135,9 @@ public class SimonLogic extends AppCompatActivity {
                     card.setColor((getResources().getColor(R.color.blue)));
                     card.setSound("si.wav");
                     break;
+                default:
+                    int i = 1;
+                    i = i + 2;
             }
         }
     }
