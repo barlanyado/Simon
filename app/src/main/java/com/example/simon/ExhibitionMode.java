@@ -70,11 +70,11 @@ public class ExhibitionMode extends AppCompatActivity {
 
     private int calculateScore()
     {
-        if (result_seconds < 2)
+        if (result_seconds < 1.5)
             return  3;
-        else if (result_seconds < 7)
+        else if (result_seconds < 3)
             return 2;
-        else if (result_seconds < 10)
+        else if (result_seconds < 6)
             return 1;
         else
             return 0;
