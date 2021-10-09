@@ -56,15 +56,16 @@ public class LevelsMap extends AppCompatActivity {
         initLauncher();
 
         SharedPreferences firstRunSP = getSharedPreferences("firstRun", MODE_PRIVATE);
+        SharedPreferences.Editor firstRunEditor = firstRunSP.edit();
+        sp = getSharedPreferences("levels", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        //resetMap(editor, firstRunEditor); // for debugging - reset levels
+
         if (firstRunSP.getBoolean("first", true))
         {
-            SharedPreferences.Editor firstRunEditor = firstRunSP.edit();
             firstRunEditor.putBoolean("first", false);
             firstRunEditor.commit();
             // --------------------------- //
-            sp = getSharedPreferences("levels", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit();
-            //resetMap(editor);
             editor.putBoolean(openedString(1), true);
             editor.putInt(starsString(1), 0);
             editor.commit();
@@ -245,13 +246,15 @@ public class LevelsMap extends AppCompatActivity {
             return 0;
     }
 
-    private void resetMap(SharedPreferences.Editor editor)
+    private void resetMap(SharedPreferences.Editor levelsEditor, SharedPreferences.Editor firstRunEditor)
     {
+        firstRunEditor.putBoolean("first", true);
+        firstRunEditor.commit();
         for (int i = 1; i <= LEVELS_NUMBER; i++)
         {
-            editor.putBoolean(openedString(i), false);
-            editor.putInt(starsString(i), 0);
+            levelsEditor.putBoolean(openedString(i), false);
+            levelsEditor.putInt(starsString(i), 0);
         }
-        editor.commit();
+        levelsEditor.commit();
     }
 }

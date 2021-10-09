@@ -128,24 +128,6 @@ class Menu extends AppCompatActivity implements LifecycleObserver {
 }
 
 
-class Record implements Serializable {
-
-    - name : String {readOnly}
-    - score : int
-    - level : int
-    - rate : int
-
-    + Record(name: String)
-    + String getName()
-    + int getLevel()
-    + void setLevel(level: int)
-    + int getScore()
-    + void setScore(score: int)
-    + int getRate()
-    + void setRate(rate: int)
-    + String toString()
-}
-
 class RecordsTable extends AppCompatActivity {
 
     - lmSP : SharedPreferences
@@ -208,7 +190,6 @@ SimonLogic *-- Level
 SimonLogic *-- Round
 SimonLogic +-- gameTimer
 Card *-- SimonLogic
-ExhibitionMode *-- Record
 
 
 @enduml
